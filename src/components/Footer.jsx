@@ -3,12 +3,12 @@ import { Link, NavLink } from 'react-router';
 
 const Footer = () => {
     return (
-        <footer className="dark:bg-gray-100 dark:text-gray-900">
-            <div className="container flex flex-col p-4 mx-auto md:p-8 lg:flex-row dark:divide-gray-600">
+        <footer className="dark:bg-gray-100 dark:text-gray-900 fixed bottom-0 w-10/12 z-53">
+            <div className="container flex flex-col p-2 mx-auto md:p-2 lg:flex-row dark:divide-gray-600">
                 <ul className="self-center py-6 space-y-4 text-center sm:flex sm:space-y-0 sm:justify-around sm:space-x-4 lg:flex-1 lg:justify-start">
                      <NavLink className={({ isActive }) => isActive ? "text-blue-500 underline" : ""} to="/">Home</NavLink>
                         <NavLink className={({ isActive }) => isActive ? "text-blue-500 underline" : ""} to="/users">Users</NavLink>
-                        <NavLink className={({ isActive }) => isActive ? "text-blue-500 underline" : ""} to="/countrise">Countrise</NavLink>
+                        <NavLink className={({ isActive }) => isActive ? "text-blue-500 underline" : ""} to="/products">Products</NavLink>
                         <NavLink className={({ isActive }) => isActive ? "text-blue-500 underline" : ""} to="/postes">Posts</NavLink>
                         <NavLink className={({ isActive }) => isActive ? "text-blue-500 underline" : ""} to="/about">About</NavLink>
                 </ul>

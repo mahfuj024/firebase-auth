@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Countrise = () => {
+const Login = () => {
     return (
         <div>
-            countrise
+            login
         </div>
     );
 };
 
-export default Countrise;
+export default Login;

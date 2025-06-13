@@ -13,7 +13,7 @@ const Signup = () => {
     const [errorMessage, setErrorMessage] = useState("")
     const [success, setSuccess] = useState(false)
 
-    const habdleSugnup = (event) => {
+    const handleSignup = (event) => {
         event.preventDefault()
         const email = event.target.email.value
         const password = event.target.password.value
@@ -55,7 +55,7 @@ const Signup = () => {
             <div className="mb-8 text-center">
                 <h1 className="my-3 text-4xl font-bold">Sign up</h1>
             </div>
-            <form onSubmit={habdleSugnup} className="space-y-12">
+            <form onSubmit={handleSignup} className="space-y-12">
                 <div className="space-y-4">
                     <div>
                         <label htmlFor="email" className="block mb-2 text-sm">Email address</label>

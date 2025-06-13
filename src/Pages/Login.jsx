@@ -1,22 +1,60 @@
-import React, { useRef, useState } from 'react';
-import { Link } from 'react-router';
+import React, { use, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Authcontext } from '../firebaseAuth/Authcontext';
+import { toast } from 'react-toastify';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import auth from '../firebase/firebase.init';
 
 const Login = () => {
 
     const passwordRef = useRef()
     const [showPassword, setShowPassword] = useState(false)
+    const { loginUserWithEmailPassword } = use(Authcontext)
+    const [errorMessage, setErrorMessage] = useState("")
+    const navigate = useNavigate()
 
     const handleSignIn = (event) => {
         event.preventDefault()
         const email = event.target.email.value
         const password = event.target.password.value
         console.log(email, password);
+
+
+        loginUserWithEmailPassword(email, password)
+            .then(result => {
+                console.log(result);
+                toast.success("Log in successfully", {
+                    position: "top-center",
+                    autoClose: 4000, // 3 seconds
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+                navigate("/")
+            })
+            .catch(error => {
+                setErrorMessage(error.message)
+            })
     }
 
     const handleForgatePassword = () => {
-        const forgatePassword = passwordRef.current.value
-        console.log(forgatePassword);
+        const email = passwordRef.current.value
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                toast.success("send a email for password rest", {
+                    position: "top-center",
+                    autoClose: 4000, // 3 seconds
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+            })
+            .catch(error => {
+                setErrorMessage(error.message)
+            })
     }
 
     const handleShowPassword = () => {
@@ -51,7 +89,7 @@ const Login = () => {
                     <div className="space-y-2">
                         <div className="flex justify-between">
                             <label htmlFor="password" className="text-sm">Password</label>
-                            <p onClick={handleForgatePassword} rel="noopener noreferrer" href="#" className="text-xs hover:text-primary hover:underline dark:text-gray-600">Forgot password?</p>
+                            <p onClick={handleForgatePassword} rel="noopener noreferrer" href="#" className="text-xs hover:text-primary hover:underline dark:text-gray-600 cursor-pointer">Forgot password?</p>
                         </div>
                         <div className='relative'>
                             <input ref={passwordRef} type={showPassword ? "text" : "password"} name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600" />
@@ -60,6 +98,11 @@ const Login = () => {
                     </div>
                 </div>
                 <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md dark:bg-primary dark:text-gray-50">Sign in</button>
+                <div className='text-center text-red-500'>
+                    {
+                        errorMessage
+                    }
+                </div>
             </form>
         </div>
     );

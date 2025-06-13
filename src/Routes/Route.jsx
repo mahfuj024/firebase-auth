@@ -8,6 +8,7 @@ import About from "../Pages/About";
 import POstdetails from "../Pages/POstdetails";
 import Signup from "../Pages/Signup";
 import Products from "../Pages/Products";
+import Login from "../Pages/Login";
 
 export const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
             {
                 path: "signup",
                 Component: Signup
+            },
+            {
+                path : "login",
+                Component : Login
             }
         ]
     },
